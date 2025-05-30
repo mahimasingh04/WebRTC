@@ -9,12 +9,15 @@ wss.on('connection', function connection(ws) {
     ws.on('message', function message(data) {
         const message = JSON.parse(data);
         if (message.type === 'sender') {
+            console.log('sender set');
             senderSocket = ws;
         }
         else if (message.type === 'receiver') {
+            console.log('receiver set');
             receiverSocket = ws;
         }
         else if (message.type === 'createOffer') {
+            console.log('offer received');
             if (ws !== senderSocket) {
                 return;
             }
@@ -22,6 +25,7 @@ wss.on('connection', function connection(ws) {
         }
         else if (message.type === 'createAnswer') {
             if (ws !== receiverSocket) {
+                console.log('answer received');
                 return;
             }
             senderSocket === null || senderSocket === void 0 ? void 0 : senderSocket.send(JSON.stringify({ type: 'createAnswer', sdp: message.sdp }));
