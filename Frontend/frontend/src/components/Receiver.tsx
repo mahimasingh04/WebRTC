@@ -20,7 +20,9 @@ export function Receiver() {
       }
      }
 
-       
+       pc.ontrack = (track) => {
+        console.log(track)
+       }
         const answer = await pc.createAnswer();
         await pc.setLocalDescription(answer);
 
